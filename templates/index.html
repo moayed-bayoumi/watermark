@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Watermark Images</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  </head>
+  <body>
+    <h1>Watermark Images</h1>
+    <form action="/" method="post" enctype="multipart/form-data">
+      <div>
+        <label for="watermark">Select watermark image:</label>
+        <input type="file" name="watermark" id="watermark" accept="image/*" required>
+      </div>
+      <div>
+        <label for="files">Select images to watermark:</label>
+        <input type="file" name="files" id="files" accept="image/*" multiple required>
+      </div>
+      <div>
+        <input type="submit" value="Watermark">
+      </div>
+    </form>
+    <script>
+      // Drag and drop functionality
+      var dropzone = document.body;
+      ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropzone.addEventListener(eventName, preventDefaults, false);
+      });
+
+      function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+
+      dropzone.addEventListener('drop', handleDrop, false);
+
+      function handleDrop(e) {
+        let dt = e.dataTransfer;
+        let files = dt.files;
+        let filesInput = document.getElementById('files');
+        filesInput.files = files;
+      }
+    </script>
+  </body>
+</html>
